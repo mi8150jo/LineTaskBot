@@ -131,4 +131,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LINEのAPIとアクセストークンの設定
 REPLY_ENDPOINT_URL = "https://api.line.me/v2/bot/message/reply"
-ACCESSTOKEN = 'GGjmEmNY2LlILW6hVR2ZxdSTTIOs9G6X6whBVdCup+6Tgekaet+ZDoOda+X84dxznGPX6r+fe+righMUuPc5ae1eR3a7o5Dcsx7Vyrk55BsB2Pp8n63Q0TiOa/uHduoOMjg42R1kzHxFMIklXvNUBQdB04t89/1O/w1cDnyilFU='
+
