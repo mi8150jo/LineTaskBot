@@ -1,14 +1,20 @@
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 import urllib.request
 import json
-from line_bot.settings import REPLY_ENDPOINT_URL, ACCESSTOKEN
+import environ 
+
+# 環境変数からアクセストークンの読み込み＋設定
+env = environ.Env()
+env.read_env('.env')
+REPLY_ENDPOINT_URL = env('REPLY_ENDPOINT_URL')
+ACCESSTOKEN = env('ACCESSTOKEN')
 
 HEADER = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + ACCESSTOKEN
 }
 
+#メッセージの送信
 class LineMessage():
     def __init__(self, messages):
         self.messages = messages

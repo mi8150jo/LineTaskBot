@@ -129,6 +129,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LINEのAPIとアクセストークンの設定
-REPLY_ENDPOINT_URL = "https://api.line.me/v2/bot/message/reply"
-
