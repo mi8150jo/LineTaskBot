@@ -18,7 +18,7 @@ HEADER = {
 class LineMessage():
     def __init__(self, messages):
         self.messages = messages
-
+        
     def reply(self, reply_token):
         body = {
             'replyToken': reply_token,
