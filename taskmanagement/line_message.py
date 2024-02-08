@@ -2,12 +2,17 @@ from django.http import HttpResponse
 import urllib.request
 import json
 import environ 
+from line_bot.settings import REPLY_ENDPOINT_URL, ACCESSTOKEN
 
 # 環境変数からアクセストークンの読み込み＋設定
-env = environ.Env()
-env.read_env('.env')
-REPLY_ENDPOINT_URL = env('REPLY_ENDPOINT_URL')
-ACCESSTOKEN = env('ACCESSTOKEN')
+# env = environ.Env()
+# env.read_env('.env')
+# REPLY_ENDPOINT_URL = env('REPLY_ENDPOINT_URL')
+# ACCESSTOKEN = env('ACCESSTOKEN')
+
+
+print(f"REPLY_ENDPOINT_URL: {REPLY_ENDPOINT_URL}")
+print(f"ACCESSTOKEN: {ACCESSTOKEN}")
 
 HEADER = {
     'Content-Type': 'application/json',
@@ -18,7 +23,7 @@ HEADER = {
 class LineMessage():
     def __init__(self, messages):
         self.messages = messages
-        
+
     def reply(self, reply_token):
         body = {
             'replyToken': reply_token,

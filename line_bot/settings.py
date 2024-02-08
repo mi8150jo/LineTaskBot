@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     ".ngrok.io",
     ".ngrok-free.app",
     "127.0.0.1",
-    "localhost"
 ]
 
 
@@ -42,8 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'line_bot_tutorial',
-    'taskmanagement'
+    'django.contrib.sites',                         
+    'login',                                        
+    'allauth',                                      
+    'allauth.account',                              
+    'allauth.socialaccount',                        
+    'allauth.socialaccount.providers.line',         
+    'taskmanagement',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'line_bot.urls'
@@ -110,9 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja-JP'        
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'        
 
 USE_I18N = True
 
@@ -129,3 +134,26 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SITE_ID = 1
+
+# ログインのリダイレクトURL
+LOGIN_REDIRECT_URL = '/'
+
+# ログアウトのリダイレクトURL
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'line': {
+        'SCOPE': ['profile','openid'],
+    }
+}
+
+from decouple import config
+
+REPLY_ENDPOINT_URL = config('REPLY_ENDPOINT_URL')
+ACCESSTOKEN = config('ACCESSTOKEN')

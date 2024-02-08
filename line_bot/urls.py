@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('line_bot_tutorial/', include('line_bot_tutorial.urls')),
-    path('taskmanagement/', include('taskmanagement.urls'))
+    path('taskmanagement/', include('taskmanagement.urls')),
+    path('auth/', include('allauth.urls')),     # 追加
+    path('', include('login.urls')),             # 追加
 ]

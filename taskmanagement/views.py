@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from utils import message_creater
-from line_bot_tutorial.line_massage import LineMessage
+from .line_message import LineMessage
 from dateutil import parser
 from datetime import datetime
 from .models import Task
