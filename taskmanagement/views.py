@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from utils import message_creater
 from line_bot_tutorial.line_massage import LineMessage
 from dateutil import parser
+from datetime import datetime
+from .models import Task
 
 remind_flag = False
 date_flag = False
@@ -31,7 +33,8 @@ def index(request):
 
     # メッセージを受け取った時
     if request.method == 'POST':
-        # JSONの抽出
+
+        # 受け取ったメッセージのJSONの抽出
         request = json.loads(request.body.decode('utf-8'))
         data = request['events'][0]
         message = data['message']
@@ -40,30 +43,39 @@ def index(request):
 
         # タスクの日付
         if date_flag == True:
+            # メッセージの日付を解析
             task_date = parse_date(message['text'])
+            # タスクの日付を文字列に変換
+            formatted_date = task_date.strftime("%Y-%m-%d %H:%M:%S")
+            # 今日の日付を取得
+            today = datetime.now()
 
-            if task_date:
-                formatted_date = task_date.strftime("%Y-%m-%d %H:%M:%S")
+            # 過去の日付と不正な日付が入力された場合
+            if task_date > today:
                 send_line_message('じゃあ「' + formatted_date + '」に教えるね！', reply_token)
+                remind_flag = False
+                date_flag = False
+                # タスクをデータベースに保存
+                Task.objects.create(user_ID=user_ID, content=task_content, date=task_date)
+                print("!!!データベースに追加しました!!!")
             else:
                 send_line_message('日付の形式が不正です。もう一度教えてください。', reply_token)
                 
-            
-            remind_flag = False
-            date_flag = False
             return HttpResponse()
 
         # タスク内容を取得
         if remind_flag == True:
             task_content = message['text']
             date_flag = True
+
             # いつ思い出したいか質問
-            send_line_message(("「" + task_content + "」だね！\n" + "いつ思い出したいか教えて！\n例：yyyy-mm-dd"), reply_token)
+            send_line_message(("「" + task_content + "」だね！\n" + "いつ思い出したいか教えて！\n例：明日の16:00 5/6の15:00"), reply_token)
             return HttpResponse()
 
         # リマインドを受け取った時
         if message['text'] == 'リマインド':
             remind_flag = True
+
             # 思い出したいことを質問
             send_line_message('後で思い出したいことを教えてください！', reply_token)
             return HttpResponse()
@@ -72,15 +84,5 @@ def index(request):
         if remind_flag == False:
             send_line_message(message['text'], reply_token)
             return HttpResponse()
-
-        # print(task_content)
-        # print(task_date)
-        # print(request)
-        # print(request_remind)
-        # print(request)
-        # print('-----------------------------')
-        # print(data)
-        # print('-----------------------------')
-        # print(message)
 
     return HttpResponse("ok")
