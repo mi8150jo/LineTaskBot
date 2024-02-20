@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,13 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',                         
+    'django.contrib.sites',       
+    'debug_toolbar',                  
     'login',                                        
     'allauth',                                      
     'allauth.account',                              
     'allauth.socialaccount',                        
     'allauth.socialaccount.providers.line',         
     'taskmanagement',
+    'django_bootstrap5',
+    
 ]
 
 MIDDLEWARE = [
@@ -58,7 +62,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
+    'allauth.account.middleware.AccountMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
 ]
 
 ROOT_URLCONF = 'line_bot.urls'
@@ -66,7 +72,9 @@ ROOT_URLCONF = 'line_bot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR/'login'/'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,11 +144,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
 
-# ログインのリダイレクトURL
-LOGIN_REDIRECT_URL = '/'
-
-# ログアウトのリダイレクトURL
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/' # loginした後にリダイレクトされるところ
+ACCOUNT_LOGOUT_REDIRECT_URL = '/' # logoutした後にリダイレクトされるところ
+ACCOUNT_SESSION_REMEMBER = True # 自動でアカウントのセッションを保持(いちいちユーザーネームとパスワードを要求しない)
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False # ユーザー登録時にパスワードの要求を一回にする
+ACCOUNT_LOGOUT_ON_GET = True #ログアウトをクリックしたらログアウト確認画面を経由しないで直接ログアウト
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -157,3 +165,8 @@ from decouple import config
 
 REPLY_ENDPOINT_URL = config('REPLY_ENDPOINT_URL')
 ACCESSTOKEN = config('ACCESSTOKEN')
+
+DEBUG_TOOLBAR_CONFIG = {
+    # ツールバーを表示させる
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+}

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 # set the application namespace
@@ -7,6 +7,6 @@ from . import views
 app_name = 'login'
 
 urlpatterns = [
-    # ex: /
+    # ex: 
     path('', views.top, name='top'),
  ]

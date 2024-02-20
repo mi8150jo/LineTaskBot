@@ -20,6 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('taskmanagement/', include('taskmanagement.urls')),
-    path('auth/', include('allauth.urls')),     # 追加
+    path('accounts/', include('allauth.urls')),     # 追加
     path('', include('login.urls')),             # 追加
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
