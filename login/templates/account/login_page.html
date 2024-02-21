@@ -1,0 +1,57 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% load allauth socialaccount %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-dark py-3">
+    <div class="container">
+      <a class="navbar-brand fs-2" href="#">
+        <h2 class="text-white pt-1">RemindBot</h2>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="はじめに">はじめに</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Github">Github</a>
+          </li>
+
+<!-- Allauthでプロバイダのリンクを取得 -->
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    <!-- {% element provider_list %} -->
+            {% for provider in socialaccount_providers %}
+            {% if provider.id == "openid" %}
+                {% for brand in provider.get_brands %}
+                    {% provider_login_url provider openid=brand.openid_url process=process as href %}
+                    <!-- {% element provider name=brand.name provider_id=provider.id href=href %}
+                    {% endelement %} -->
+                {% endfor %}
+            {% else %}
+                {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
+                <li>
+                    <a href="{{ href }}" class="btn btn-outline-success bg-white ms-2" role="button" area-disabled="True">LINEでログイン</a>
+                </li>     
+                <!-- {% element provider name=provider.name provider_id=provider.id href=href %}
+                {% endelement %} -->
+            {% endif %}
+        {% endfor %}
+    <!-- {% endelement %} -->
+{% endif %}
+          <!-- <li>
+            <a href="{{ href }}" class="btn btn-outline-success bg-white ms-2" role="button" area-disabled="True">LINEでログイン</a>
+          </li> -->
+          <!-- <li>
+            <a href="ログアウト" class="btn btn-outline-secondary" role="button" area-disabled="True">ログアウト</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+</nav>
+{% endblock body %}
+
