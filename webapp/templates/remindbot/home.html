@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+
+{% load account %}
+{% load allauth account %}
+
+{% block body %}
+    {% if social_accounts %}
+    
+        {% for account in social_accounts %}
+            <h1>ようこそ，{{ account.extra_data.displayName }}さん</h1>
+        {% endfor %}
+
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.content }} - {{ task.date }}</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+
+
+    {% endif %}
+{% endblock body %}

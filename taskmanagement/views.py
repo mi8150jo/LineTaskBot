@@ -5,11 +5,13 @@ from django.views.decorators.csrf import csrf_exempt
 from utils import message_creater
 from .line_message import LineMessage
 from dateutil import parser
-from datetime import datetime
+from datetime import datetime, date, time
 from .models import Task
 
 remind_flag = False
 date_flag = False
+startTime_flag = False
+endTime_flag = False
 task_content = ''
 task_date = ''
 
@@ -20,10 +22,23 @@ def send_line_message(text, reply_token):
 def parse_date(text):
     try:
         # dateutilを使用して日付を解析
-        parsed_date = parser.parse(text, fuzzy=True)
+        parsed_date = parser.parse(text)
         return parsed_date
     except ValueError:
         # 解析できない場合はNoneを返す
+        return None
+
+def convert_to_time(text):
+    try:
+        # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
+        datetime_object = parser.parse(text)
+        
+        # datetimeオブジェクトからtimeオブジェクトを抽出
+        time_object = datetime_object.time()
+        
+        return time_object
+    except ValueError:
+        print("無効な時刻形式です。正しい形式で入力してください。")
         return None
 
 @csrf_exempt
@@ -36,6 +51,7 @@ def index(request):
 
         # 受け取ったメッセージのJSONの抽出
         request = json.loads(request.body.decode('utf-8'))
+        print(request)
         data = request['events'][0]
         message = data['message']
         reply_token = data['replyToken']

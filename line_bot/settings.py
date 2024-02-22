@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +27,20 @@ SECRET_KEY = 'django-insecure-0*l=k@(gya_gis8x-$b&jm8bum3e**vczzgb5!b8a)&i!zqeo9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',  # DEBUG レベル以上のログが表示されるようにする
+    },
+}
 
 ALLOWED_HOSTS = [
     ".ngrok.io",
@@ -51,6 +67,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.line',         
     'taskmanagement',
     'django_bootstrap5',
+    'webapp',
     
 ]
 
@@ -144,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/' # loginした後にリダイレクトされるところ
+LOGIN_REDIRECT_URL = reverse_lazy("webapp:home") # loginした後にリダイレクトされるところ
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # logoutした後にリダイレクトされるところ
 ACCOUNT_SESSION_REMEMBER = True # 自動でアカウントのセッションを保持(いちいちユーザーネームとパスワードを要求しない)
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False # ユーザー登録時にパスワードの要求を一回にする
@@ -160,8 +177,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['profile','openid'],
     }
 }
-
-from decouple import config
 
 REPLY_ENDPOINT_URL = config('REPLY_ENDPOINT_URL')
 ACCESSTOKEN = config('ACCESSTOKEN')

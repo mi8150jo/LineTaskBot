@@ -5,4 +5,4 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def top(request):
     """トップ画面"""
-    return render(request,'account/login_page.html')
+    return render(request,'remindbot/top.html')

@@ -36,40 +36,14 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'login:top'%}">はじめに</a>
+                    <a class="nav-link text-white" href="{% url 'webapp:home'%}">home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link text-white" href="https://github.com/mi8150jo" target="blank">Github</a>
                   </li>
-        
-        <!-- Allauthでプロバイダのリンクを取得 -->
-        {% get_providers as socialaccount_providers %}
-        {% if socialaccount_providers %}
-            <!-- {% element provider_list %} -->
-                    {% for provider in socialaccount_providers %}
-                    {% if provider.id == "openid" %}
-                        {% for brand in provider.get_brands %}
-                            {% provider_login_url provider openid=brand.openid_url process=process as href %}
-                            <!-- {% element provider name=brand.name provider_id=provider.id href=href %}
-                            {% endelement %} -->
-                        {% endfor %}
-                    {% else %}
-                        {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
-                        <li>
-                            <a href="{{ href }}" class="btn btn-outline-success bg-white ms-2" role="button" area-disabled="True">LINEでログイン</a>
-                        </li>     
-                        <!-- {% element provider name=provider.name provider_id=provider.id href=href %}
-                        {% endelement %} -->
-                    {% endif %}
-                {% endfor %}
-            <!-- {% endelement %} -->
-        {% endif %}
-                  <!-- <li>
-                    <a href="{{ href }}" class="btn btn-outline-success bg-white ms-2" role="button" area-disabled="True">LINEでログイン</a>
-                  </li> -->
-                  <!-- <li>
-                    <a href="ログアウト" class="btn btn-outline-secondary" role="button" area-disabled="True">ログアウト</a>
-                  </li> -->
+                  <li>
+                    <a href="{% url 'account_logout' %}" class="btn btn-outline-secondary bg-white ms-2" role="button" area-disabled="True">ログアウト</a>
+                  </li>     
                 </ul>
               </div>
             </div>
