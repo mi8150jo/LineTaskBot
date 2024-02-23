@@ -1,5 +1,4 @@
 from dateutil import parser
-
 def convert_to_time(time_string):
     try:
         # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
@@ -13,14 +12,22 @@ def convert_to_time(time_string):
         print("無効な時刻形式です。正しい形式で入力してください。")
         return None
 
+def convert_to_date(date_string):
+    try:
+        datetime_object = parser.parse(date_string)
+        date_object = datetime_object.date()
+        return date_object
+    except ValueError:
+        return None
+
 # テスト用
 time_str1 = "12:30"
 time_str2 = "3:00"
-time_str3 = "23:00"
+time_str3 = "2/29"
 
 converted_time1 = convert_to_time(time_str1)
 converted_time2 = convert_to_time(time_str2)
-converted_time3 = convert_to_time(time_str3)
+converted_time3 = convert_to_date(time_str3)
 
 if converted_time1:
     print(f"変換された時刻1: {converted_time1}")
@@ -30,3 +37,4 @@ if converted_time2:
 
 if converted_time3:
     print(f"変換された時刻3: {converted_time3}")
+
