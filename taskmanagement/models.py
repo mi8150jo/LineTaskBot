@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Task(models.Model):
@@ -9,3 +10,6 @@ class Task(models.Model):
     startTime = models.TimeField(null=True)
     endTime = models.TimeField(null=True)
     remind_date = models.DateField(null=True)
+
+    def get_absolute_url(self):
+        return reverse('webapp:home')

@@ -23,7 +23,7 @@ def send_line_message(text, reply_token):
 
 def convert_to_date(text):
     try:
-         # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
+        # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
         datetime_object = parser.parse(text)
 
         # datetimeオブジェクトからdateオブジェクトを抽出

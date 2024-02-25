@@ -5,17 +5,27 @@
 
 {% block body %}
     {% if social_accounts %}
-    
+
         {% for account in social_accounts %}
             <h1>ようこそ，{{ account.extra_data.displayName }}さん</h1>
         {% endfor %}
 
-        <ul>
-            {% for task in tasks %}
-                <li>{{ task.content }} - {{ task.date }}</li>
-            {% endfor %}
-        </ul>
+        <a href="{% url 'webapp:new' %}">新規登録</a>
 
+        {% for task in tasks %}
+        <ul>
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date }}</td>
+                <td>
+                    <a href="{% url 'webapp:edit' pk=task.pk %}">編集</a>
+                    <a href="{% url 'webapp:delete' pk=task.pk %}">削除</a>
+                </td>
+            </tr>
+        </ul>
+        {% endfor %}
+                            
+            
     {% else %}
 
 
