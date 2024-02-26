@@ -5,21 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h1 class="card-title fs-3 mt-2 d-flex justify-content-center">登録フォーム</h1>
+                <div class="card-header bg-info text-white">
+                    <h1 class="card-title fs-3 mt-2 d-flex justify-content-center">タスク詳細</h1>
                 </div>
                 <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                    
+                    <p>{{ task.date }}</p>
+                    <p>{{ task.content }}</p>
+                    <p>開始時刻: {{ task.startTime }}</p>
+                    <p>終了時刻: {{ task.endTime }}</p>
                 </div>
                 <div class="card-footer d-flex">
                     <a href="{% url 'webapp:home' %}" class="btn btn-secondary">戻る</a>
-                    <input type="submit" value="登録" class="btn btn-success ms-auto">
                 </div>
-
-                    </form>
+                
+                    
             </div>
         </div>
     </div>

@@ -1,12 +1,28 @@
-<h1>削除</h1>
+{% extends "layouts/base.html" %}
 
-<form method="post">
-    {% csrf_token %}
-
-    以下のタスクを削除してもよろしいですか？<br>
-    {{ task.content }}<br>
-
-    {{ form }}
-    <a href="{% url 'webapp:home' %}">戻る</a>
-    <input type="submit" value="削除">
-</form>
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h1 class="card-title fs-3 mt-2 d-flex justify-content-center">タスク削除</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="card-text">以下のタスクを削除してもよろしいですか？</p>
+                        <p class="card-text">{{ task.content }}</p>
+                        {{ form }}          
+                </div>
+                <div class="card-footer d-flex">
+                    <a href="{% url 'webapp:home' %}" class="btn btn-secondary">戻る</a>
+                    <input type="submit" value="削除" class="btn btn-danger ms-auto">
+                </div>
+                
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

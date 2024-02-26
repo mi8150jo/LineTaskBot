@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load account %}
 {% load allauth account %}
 {% load allauth socialaccount %}
 
@@ -11,6 +12,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'webapp/base.css' %}">
         <title>
             {% block head_title %}
             {% endblock head_title %}
@@ -35,13 +37,20 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'webapp:home'%}">home</a>
+                  <li class="nav-item ms-2">
+                    <a class="nav-link text-white" href="{% url 'webapp:home'%}">タスク管理</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="https://github.com/mi8150jo" target="blank">Github</a>
+                  <li class="nav-item ms-2">
+                    <a class="nav-link text-white" href="{% url 'webapp:pastTask'%}">過去のタスク</a>
                   </li>
-                  <li>
+                  <li class="nav-item ms-2">
+                    {% if social_accounts %}
+                        {% for account in social_accounts %}
+                            <img class="line-icon mt-1" src="{{ account.extra_data.pictureUrl }}" alt="Bootstrap" width="30" height="30">
+                        {% endfor %}
+                    {% endif %}
+                  </li>
+                  <li class="nav-item ms-2">
                     <a href="{% url 'account_logout' %}" class="btn btn-outline-secondary bg-white ms-2" role="button" area-disabled="True">ログアウト</a>
                   </li>     
                 </ul>

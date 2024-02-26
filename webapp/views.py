@@ -3,19 +3,32 @@ from allauth.socialaccount.models import SocialAccount
 from taskmanagement.models import Task
 import logging
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from datetime import timedelta
 from django.utils import timezone
 from django import forms
+from django.http import HttpResponse, HttpResponseRedirect
 
 def home(request):
     # ログインしているとき
     if request.user.is_authenticated:
         social_accounts = SocialAccount.objects.filter(user=request.user)
-        tasks = Task.objects.filter(user_ID=request.user)
+        tasks = Task.objects.filter(user_ID=request.user, date__gte=timezone.now().date()).order_by('date', 'startTime')
         logging.debug(tasks)
 
-        return render(request, "remindbot/home2.html", {
+        return render(request, "remindbot/home.html", {
+            "social_accounts": social_accounts,
+            "tasks": tasks,
+        })
+
+def pastTask(request):
+    if request.user.is_authenticated:
+        social_accounts = SocialAccount.objects.filter(user=request.user)
+        tasks = Task.objects.filter(user_ID=request.user, date__lt=timezone.now().date()).order_by('date', 'startTime')
+        logging.debug(tasks)
+
+        return render(request, "remindbot/pastTask.html", {
             "social_accounts": social_accounts,
             "tasks": tasks,
         })
@@ -88,3 +101,7 @@ class TaskDeleteView(DeleteView):
     # 削除完了後のリダイレクト先
     success_url = reverse_lazy('webapp:home')
 
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = 'remindbot/task_detail.html'
+    context_object_name = 'task'

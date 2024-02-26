@@ -25,7 +25,7 @@
             <div class="row align-items-start">
             <div class="col-auto me-auto mt-4 mb-4">
                 {% for account in social_accounts %}
-                    <h1 class="fs-2">{{ account.extra_data.displayName }}さんのタスク</h1>
+                    <h1 class="fs-2">過去のタスク</h1>
                 {% endfor %}
             </div>
             <div class="col-auto mt-4">
@@ -33,7 +33,7 @@
             </div>
             </div>
         </div>
-
+        
         <table class="table table-hover">
             <thead>
               <tr class="table-secondary">
@@ -50,17 +50,17 @@
             <tbody>
               <tr data-href="{% url 'webapp:task_detail' pk=task.pk %}">
                 <td>{{ task.date }}</td>
-                <td>{{ task.content|truncatechars:20 }}</td>
+                <td>{{ task.content|truncatechars:10 }}</td>
                 <td>{{ task.startTime }}</td>
                 <td>{{ task.endTime }}</td>
                 <td>
                     <a class="btn btn-outline-primary" href="{% url 'webapp:edit' pk=task.pk %}" role="button">
-                        <img class="pencil-edit-icon" src="{% static 'svg/pencil-square.svg' %}" alt="EditIcon">
+                        <img src="{% static 'svg/pencil-square.svg' %}" alt="EditIcon">
                     </a>
                 </td>
                 <td>
                     <a class="btn btn-outline-danger" href="{% url 'webapp:delete' pk=task.pk %}" role="button">
-                        <img class="trash-delete-icon" src="{% static 'svg/trash3.svg' %}" alt="TrashIcon">
+                        <img src="{% static 'svg/trash3.svg' %}" alt="TrashIcon">
                     </a>
                 </td>
               </tr>

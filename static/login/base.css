@@ -1,0 +1,6 @@
+.github-icon {
+    width: 20px; /* 画像の幅を指定 */
+    height: 20px; /* 画像の高さを指定 */
+    /* 白色 */
+    filter: invert(100%);
+}

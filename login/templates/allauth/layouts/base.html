@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'login/base.css' %}">
         <title>
             {% block head_title %}
             {% endblock head_title %}
@@ -38,8 +39,11 @@
                   <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'login:top'%}">はじめに</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="https://github.com/mi8150jo" target="blank">Github</a>
+                  <li class="nav- ma-2">
+                    <a class="nav-link text-white" href="https://github.com/mi8150jo" target="blank">
+                        <img class="github-icon mb-1" src="{% static 'svg/github.svg' %}" alt="GithubIcon">
+                        Github
+                    </a>
                   </li>
         
         <!-- Allauthでプロバイダのリンクを取得 -->
