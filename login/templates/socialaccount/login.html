@@ -5,26 +5,36 @@
 
 {% block content %}
     {% if process == "connect" %}
-        {% element h1 %}
-            {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
-        {% endelement %}
-        <p>
-            {% blocktrans with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
-        </p>
-    {% else %}
-        {% element h1 %}
-            {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
-        {% endelement %}
-        <p>
-            {% blocktrans with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
-        </p>
-    {% endif %}
-    {% element form method="post" no_visible_fields=True %}
-        {% slot actions %}
-            {% csrf_token %}
-            {% element button type="submit" %}
-                {% trans "Continue" %}
+
+        <div class="card w-50 mt-5 mx-auto">
+        <div class="card-body">
+            <h5 class="card-title fs-3">{% blocktrans with provider.name as provider %}{{ provider }}でログインする{% endblocktrans %}</h5>
+            <p class="card-text fs-6">{% blocktrans with provider.name as provider %}{{ provider }}のサードパーティアカウントを利用してログインしようとしています.{% endblocktrans %}</p>
+            
+            {% element form method="post" no_visible_fields=True %}
+            {% slot actions %}
+                {% csrf_token %}
+                <input class="btn btn-outline-success" type="submit" value="続ける">
+            {% endslot %}
             {% endelement %}
-        {% endslot %}
-    {% endelement %}
+        </div>
+        </div>
+        
+    {% else %}
+
+        <div class="card w-50 mt-5 mx-auto">
+        <div class="card-body">
+            <h5 class="card-title fs-3">{% blocktrans with provider.name as provider %}{{ provider }}でログインする{% endblocktrans %}</h5>
+            <p class="card-text fs-6">{% blocktrans with provider.name as provider %}{{ provider }}のサードパーティアカウントを利用してログインしようとしています{% endblocktrans %}</p>
+            
+            {% element form method="post" no_visible_fields=True %}
+            {% slot actions %}
+                {% csrf_token %}
+                <input class="btn btn-outline-success" type="submit" value="続ける">
+            {% endslot %}
+            {% endelement %}
+        </div>
+        </div>
+
+    {% endif %}
 {% endblock content %}
