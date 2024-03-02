@@ -105,3 +105,33 @@ class TaskDetailView(DetailView):
     model = Task
     template_name = 'remindbot/task_detail.html'
     context_object_name = 'task'
+
+class PastTaskCreateView(CreateView):
+    """
+    新規登録
+    """
+
+    form_class = TaskForm
+    template_name = "remindbot/past_task_form.html"
+
+
+    def form_valid(self, form):
+        # ログインしているユーザーの情報を取得
+        user_id = self.request.user
+
+        # フォームのuser_IDにユーザーのIDを設定
+        form.instance.user_ID = user_id
+
+        # リマインドする日をフォームのデータがバリデーションを通過した後のdateを取得する
+        remind_date = form.cleaned_data['date'] - timedelta(days=1)
+
+        # 過去の日付が入力された場合
+        if remind_date > timezone.now().date():
+            form.add_error('date', '未来の日付は指定できません')
+            return self.form_invalid(form)
+
+        # フォームのremind_dateに設定
+        form.instance.remind_date = remind_date
+
+        # フォームが有効なら保存
+        return super().form_valid(form)
