@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 import urllib.request
 import json
-import environ 
 from line_bot.settings import REPLY_ENDPOINT_URL, ACCESSTOKEN
 
 print(f"REPLY_ENDPOINT_URL: {REPLY_ENDPOINT_URL}")

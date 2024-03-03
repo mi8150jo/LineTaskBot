@@ -1,6 +1,6 @@
 def create_single_text_message(message):
-    if message == 'こんにちは':
-        message = 'どういたしまして'
+    if message == '開発者':
+        message = 'mi8150jo'
     test_message = [
         {
             'type': 'text',

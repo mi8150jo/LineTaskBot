@@ -90,7 +90,6 @@ def index(request):
                 send_line_message(("「" + task_content + "」\n" + "日付：" + task_date + "\n" + task_startTime + "〜" + task_endTime + "\n" + "上記の内容で登録しました！"), reply_token)
                 # データベースにタスクを追加
                 Task.objects.create(user_ID=user_ID, content=task_content, date=task_date, startTime=task_startTime, endTime=task_endTime, remind_date=remind_date)
-                print("!!!データベースに追加しました!!!")
 
                 # グローバル変数の初期化
                 remind_flag = False
@@ -114,7 +113,7 @@ def index(request):
             if task_startTime:
                 endTime_flag = True
                 # タスクの終了時間を質問
-                send_line_message(("終了時間を教えて！"), reply_token)
+                send_line_message(("終了時間を教えて！\n例：12:00, 12:30"), reply_token)
             else:
                 send_line_message('日付の形式が不正です。もう一度教えてください。', reply_token)
             return HttpResponse()
@@ -131,7 +130,7 @@ def index(request):
                 startTime_flag = True
 
                 # タスクの開始時間を質問
-                send_line_message(("開始時間を教えて！"), reply_token)
+                send_line_message(("開始時間を教えて！\n例：12:00, 12:30"), reply_token)
             else:
                 send_line_message('日付の形式が不正です。もう一度教えてください。', reply_token)
                 
@@ -143,11 +142,11 @@ def index(request):
             date_flag = True
 
             # タスクの日付を質問
-            send_line_message(("「" + task_content + "」だね！\n" + "日付を教えて！\n例：12/25"), reply_token)
+            send_line_message(("「" + task_content + "」だね！\n" + "日付を教えて！\n例：12/25, 2025/12/25"), reply_token)
             return HttpResponse()
 
         # リマインドを受け取った時
-        if message['text'] == 'リマインド':
+        if message['text'] == 'タスク':
             remind_flag = True
 
             # 思い出したいことを質問
@@ -155,8 +154,8 @@ def index(request):
             return HttpResponse()
 
         #オウム返し
-        if remind_flag == False:
-            send_line_message(message['text'], reply_token)
-            return HttpResponse()
+        # if remind_flag == False:
+        #     send_line_message(message['text'], reply_token)
+        #     return HttpResponse()
 
     return HttpResponse("ok")
