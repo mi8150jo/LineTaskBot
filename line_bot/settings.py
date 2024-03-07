@@ -43,9 +43,8 @@ LOGGING = {
 }
 
 ALLOWED_HOSTS = [
-    ".ngrok.io",
-    ".ngrok-free.app",
-    "127.0.0.1",
+    "15.168.146.218",
+    "mi8150jo.com",
 ]
 
 
@@ -109,6 +108,9 @@ WSGI_APPLICATION = 'line_bot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 DATABASES = {
     'default': {
@@ -153,7 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -186,3 +188,11 @@ DEBUG_TOOLBAR_CONFIG = {
     # ツールバーを表示させる
     "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
 }
+CSRF_TRUSTED_ORIGINS = [
+    'https://mi8150jo.com',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
