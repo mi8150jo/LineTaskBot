@@ -5,10 +5,13 @@ LINEと連携したタスク管理ツールです<br>
 LINEのBotにメッセージを送ってタスクを追加できます<br>
 追加したタスクはWebサイトで管理することができます<br>
 <a href="https://mi8150jo.com">Webタスク管理くん</a>
+
 ![](webscreen.png)
 <br>
+ログイン前の画面<br>
+
+![](webscreenlogin.png)
 ログイン後の画面<br>
-![](webcreenlogin.png)
 
 # 使用技術
 
