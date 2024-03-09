@@ -1,12 +1,21 @@
 
-## タスク管理くん
+# タスク管理くん
 
 LINEと連携したタスク管理ツールです<br>
 LINEのBotにメッセージを送ってタスクを追加できます<br>
 追加したタスクはWebサイトで管理することができます<br>
 
-## 使用技術
+# 使用技術
 
+## 言語
+<img src="https://img.shields.io/badge/PHP-ccc.svg?logo=php&style=flat">
+<img src="https://img.shields.io/badge/Javascript-276DC3.svg?logo=javascript&style=flat">
+<img src="https://img.shields.io/badge/-TypeScript-007ACC.svg?logo=typescript&style=flat">
+<img src="https://img.shields.io/badge/-Python-F9DC3E.svg?logo=python&style=flat">
+<img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=css3&style=flat">
+<img src="https://img.shields.io/badge/-HTML5-333.svg?logo=html5&style=flat">
+
+## requirements.txt
 asgiref==3.7.2<br>
 certifi==2024.2.2<br>
 cffi==1.16.0<br>
