@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from utils import message_creater
-from .line_message import LineMessage
-from dateutil import parser
+from utils.send_line_message import send_line_message
+from utils.convert_to_time import convert_to_time
+from utils.convert_to_date import convert_to_date
 from datetime import datetime, timedelta
 from .models import Task
 
@@ -16,36 +16,6 @@ task_content = ''
 task_date = ''
 task_startTime = ''
 task_endTime = ''
-
-def send_line_message(text, reply_token):
-    line_message = LineMessage(message_creater.create_single_text_message(text))
-    line_message.reply(reply_token)
-
-def convert_to_date(text):
-    try:
-        # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
-        datetime_object = parser.parse(text)
-
-        # datetimeオブジェクトからdateオブジェクトを抽出
-        date_object = datetime_object.date()
-
-        return date_object
-    except ValueError:
-        # 解析できない場合はNoneを返す
-        return None
-
-def convert_to_time(text):
-    try:
-        # parseメソッドを使用して文字列を解釈し、datetimeオブジェクトを取得
-        datetime_object = parser.parse(text)
-        
-        # datetimeオブジェクトからtimeオブジェクトを抽出
-        time_object = datetime_object.time()
-        
-        return time_object
-    except ValueError:
-        # 解析できない場合はNoneを返す
-        return None
 
 @csrf_exempt
 def index(request):
@@ -113,7 +83,7 @@ def index(request):
             if task_startTime:
                 endTime_flag = True
                 # タスクの終了時間を質問
-                send_line_message(("終了時間を教えて！\n例：12:00, 12:30"), reply_token)
+                send_line_message(("終了時間を教えて！\n形式：12:00, 12:30"), reply_token)
             else:
                 send_line_message('日付の形式が不正です。もう一度教えてください。', reply_token)
             return HttpResponse()
@@ -130,7 +100,7 @@ def index(request):
                 startTime_flag = True
 
                 # タスクの開始時間を質問
-                send_line_message(("開始時間を教えて！\n例：12:00, 12:30"), reply_token)
+                send_line_message(("開始時間を教えて！\n形式：12:00, 12:30"), reply_token)
             else:
                 send_line_message('日付の形式が不正です。もう一度教えてください。', reply_token)
                 
@@ -142,7 +112,7 @@ def index(request):
             date_flag = True
 
             # タスクの日付を質問
-            send_line_message(("「" + task_content + "」だね！\n" + "日付を教えて！\n例：12/25, 2025/12/25"), reply_token)
+            send_line_message(("「" + task_content + "」だね！\n" + "日付を教えて！\n形式：12/25, 2025/12/25"), reply_token)
             return HttpResponse()
 
         # リマインドを受け取った時
@@ -150,7 +120,7 @@ def index(request):
             remind_flag = True
 
             # 思い出したいことを質問
-            send_line_message('後で思い出したいことを教えてください！', reply_token)
+            send_line_message('追加したいタスクの内容を教えて！', reply_token)
             return HttpResponse()
 
         #オウム返し
