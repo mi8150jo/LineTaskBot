@@ -85,4 +85,4 @@ sqlparse==0.4.4<br>
 urllib3==2.2.1<br>
 
 ## AWS構成図
-![](aws.drawio.svg)
+![](aws.png)
