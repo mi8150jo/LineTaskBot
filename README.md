@@ -7,6 +7,7 @@ LINEのBotにメッセージを送ってタスクを追加できます<br>
 
 # 使用技術
 
+#主な使用技術一覧
 <table>
     <!-- ヘッダ -->
     <tr>
@@ -39,7 +40,7 @@ LINEのBotにメッセージを送ってタスクを追加できます<br>
         <td>
             <img src="https://img.shields.io/badge/-Nginx-269539.svg?logo=nginx&style=flat">
             <br>
-            <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?logo=sqlite&style=flat">
+            <img src="https://img.shields.io/badge/Sqlite3-%2307405e.svg?logo=sqlite&style=flat">
             <br>
             <img src="https://img.shields.io/badge/-Gunicorn-199848.svg?logo=gunicorn&style=flat">
         </td>
