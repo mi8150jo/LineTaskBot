@@ -5,6 +5,7 @@ LINEと連携したタスク管理ツールです<br>
 LINEのBotにメッセージを送ってタスクを追加できます<br>
 追加したタスクはWebサイトで管理することができます<br>
 
+
 # 使用技術
 
 ## 主な使用技術一覧
@@ -82,3 +83,6 @@ requests-oauthlib==1.3.1<br>
 six==1.16.0<br>
 sqlparse==0.4.4<br>
 urllib3==2.2.1<br>
+
+## AWS構成図
+![](aws.drawio.svg)
