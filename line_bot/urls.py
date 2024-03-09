@@ -22,6 +22,5 @@ urlpatterns = [
     path('taskmanagement/', include('taskmanagement.urls')),
     path('accounts/', include('allauth.urls')),     
     path('', include('login.urls')),             
-    path("__debug__/", include("debug_toolbar.urls")),
     path('remindbot/', include("webapp.urls")),
 ]

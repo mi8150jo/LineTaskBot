@@ -184,10 +184,6 @@ SOCIALACCOUNT_PROVIDERS = {
 REPLY_ENDPOINT_URL = config('REPLY_ENDPOINT_URL')
 ACCESSTOKEN = config('ACCESSTOKEN')
 
-DEBUG_TOOLBAR_CONFIG = {
-    # ツールバーを表示させる
-    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
-}
 CSRF_TRUSTED_ORIGINS = [
     'https://mi8150jo.com',
 ]
